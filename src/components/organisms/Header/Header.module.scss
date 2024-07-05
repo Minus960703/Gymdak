@@ -1,0 +1,32 @@
+@import '@/styles/DefaultValueVariable.scss';
+
+.header {
+  height        : 80px;
+  border-bottom : 1px solid $--color-gray-medium;
+
+  .menu {
+    display         : flex;
+    justify-content : space-between;
+    align-items     : center;
+    max-width       : 1276px;
+    height          : 80px;
+    padding         : 0 20px;
+    margin          : 0 auto;
+
+    .logo {
+      cursor: pointer;
+    }
+  
+    ul {
+  
+      li {
+        cursor: pointer;  
+      }
+  
+      .active {
+        color: $--color-main-blue;
+      }
+    }
+  }
+
+}

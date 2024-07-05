@@ -1,0 +1,86 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 8;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  .white {
+    position: absolute;
+    width: 360px;
+    height: 204px;
+    padding: 40px 40px 10px 40px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    z-index: 2;
+    animation: modaldown 0.25s linear;
+
+    @keyframes modaldown {
+      from {
+        transform: translateY(-5%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .white__title {
+      &--blue {
+        margin: 0;
+        width: 100%;
+        margin-bottom: 16px;
+        font-family: "Inter", sans-serif;
+        font-weight: bolder;
+        font-size: 1.125rem;
+        text-align: center;
+        color: #2e62e7;
+      }
+
+      &--grey {
+        margin: 0;
+        width: 100%;
+        font-size: 1rem;
+        font-family: "Inter", sans-serif;
+        text-align: center;
+        color: #5c5c5c;
+      }
+    }
+
+    .btn__area {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+
+      & button {
+        width: 100px;
+        height: 40px;
+        cursor: pointer;
+        background-color: rgb(146, 146, 146);
+        border: none;
+        color: #fff;
+        border-radius: 10px;
+        margin-top: 24px;
+        font-family: "Inter", sans-serif;
+        font-weight: bolder;
+        font-size: 20px;
+        z-index: 2;
+      }
+
+      & button:first-child {
+        margin-right: 20px;
+      }
+
+      & :last-child {
+        background-color: #2e55e7;
+      }
+    }
+  }
+}

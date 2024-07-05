@@ -1,0 +1,16 @@
+@import '@/styles/DefaultValueVariable.scss';
+
+.footer {
+  width: 100vwpx;
+  border-top: 1px solid $--color-gray-medium;
+  height: 109px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > span {
+    font-size: $--font-small;
+    color: $--color-gray;
+  }
+}

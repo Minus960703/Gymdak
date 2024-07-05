@@ -1,0 +1,64 @@
+@import '@/styles/DefaultValueVariable.scss';
+
+.card {
+  max-width     : 304px;
+  height        : calc(170px - 20px * 2);
+  border        : 1px solid $--color-gray-light;
+  border-radius : 8px;
+  display       : flex;
+  flex-wrap     : wrap;
+  position      : relative;
+  cursor        : pointer;
+  padding       : 20px;
+
+  > button {
+    position: absolute;
+    border: 0;
+    background-color: transparent;
+    width: 24px;
+    top: 5px;
+    right: 10px;
+  }
+
+  h4 {
+    max-width     : calc(304px - 20px * 2);
+    max-height    : 38px;
+    margin        : 10px 0;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    white-space   : nowrap;
+  }
+
+  &__explain {
+    max-width: calc(304px - 20px * 2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    span {
+      max-width: calc(304px - 20px * 2);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  &__time {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    span {
+      width: 100%;
+      font-size: $--font-small;
+      color: $--color-gray;
+      text-align: right;
+
+      &:not(:first-child) {
+        width: 50%;
+      }
+
+      &:nth-child(2) {
+        text-align: left;
+      }
+    }
+  }
+}

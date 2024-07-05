@@ -1,0 +1,27 @@
+.area {
+  display: flex;
+  flex-wrap: nowrap;
+
+  // flex-wrap: wrap;
+  span {
+    line-height: 42px;
+    margin: 0 5px;
+  }
+}
+
+.picker {
+  position: relative;
+
+  img {
+    position: absolute;
+    top: 6.5px;
+    left: 6px;
+  }
+}
+
+.input {
+  &.readonly {
+    background-color: #eee;
+    color: #aaa;
+  }
+}
