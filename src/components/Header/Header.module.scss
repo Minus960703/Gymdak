@@ -1,0 +1,83 @@
+@import '@/styles/DefaultValueVariable.scss';
+
+.header {
+  height        : 120px;
+  border-bottom : 1px solid $--color-gray-medium;
+
+  &__menu {
+    max-width       : 1276px;
+    height          : 120px;
+
+    .menu {
+      &__main {
+        display         : flex;
+        justify-content : space-between;
+        align-items     : center;
+        padding         : 0 20px;
+        margin          : 0 auto;
+        height          : 80px;
+  
+        .logo {
+          cursor: pointer;
+          font-size: $--font-logo;
+        }
+      
+        ul {
+          display: flex;
+          gap: 20px;
+      
+          li {
+            cursor: pointer;
+          }
+      
+          .active {
+    
+            a {
+              color: $--color-main-blue;
+            }
+          }
+        }
+      }
+
+      &__sub {
+        display         : flex;
+        justify-content : flex-end;
+        align-items     : center;
+        padding         : 0 20px;
+        margin          : 0 auto;
+        height          : 40px;
+
+        ul {
+          display: flex;
+          gap: 20px;
+      
+          li {
+            cursor: pointer;
+
+            a {
+              font-weight: $--weight-medium;
+            }
+
+            &:not(.active):hover {
+              
+              a{
+                color       : $--color-gray-medium;
+                font-weight : $--weight-bold;
+              }
+            }
+          }
+      
+          .active {
+      
+            a {
+              color       : $--color-main-blue;
+              font-weight : $--weight-bold;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}
