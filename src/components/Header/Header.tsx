@@ -3,6 +3,7 @@
 import React, { useCallback } from 'react'
 import styles from './Header.module.scss'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation';
 
 
 // dataBase 에서 관리하도록 변경 예정 ( 확장성 )
@@ -27,12 +28,14 @@ const MenuList = [
 const currentLanguage = 'KR';
 
 function Header() {
+  const pathname = usePathname();
+
   return (
     <header className={styles.header}>
       <nav className={styles.header__menu}>
         <div className={styles.menu__main}>
           <div className={styles.logo}>
-            <a href={'/'}>Gym Dak</a> {/** Link의 경우 라우터 처럼 보이기 때문에 페이지를 다시 로드하지 않기 때문에 active 클래스가 남아있게 된다. */}
+            <Link href={'/'}>Gym Dak</Link>
           </div>
           <ul> 
             <li>
@@ -46,10 +49,7 @@ function Header() {
         <div className={styles.menu__sub}>
           <ul>
             {MenuList.map((item) => {
-              const isActive = location.pathname === item.path ? true : false;
-              console.log(location.pathname);
-              console.log(isActive);
-              console.log(item.path);
+              const isActive = pathname === item.path ? true : false;
               return (
                 <li
                   key={item.id}
