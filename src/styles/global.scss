@@ -19,11 +19,21 @@ li {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+  color: $--color-black;
+}
+
+header {
+  max-width: 1276px;
+  margin: 0 auto;
+}
+
 main {
   max-width: 1276px;
   margin: 0 auto;
-  min-height: calc(100vh - 80px - 151px);
-  max-height: calc(100vh - 80px - 151px);
+  min-height: calc(100vh - 80px - 40px - 151px);
+  max-height: calc(100vh - 80px - 40px - 151px);
   padding: 20px;
 
   &.home {
