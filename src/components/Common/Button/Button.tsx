@@ -1,25 +1,24 @@
-import { IconImage } from '../IconImage/IconImage';
 import styles from './Button.module.scss';
 
-interface ButtonProps {
+export interface ButtonProps {
   value           : string | null;
-  type           ?: 'DELETE' | null;
+  // type           ?: 'DELETE' | null;
   onClickEvent   ?: () => void;
 }
 
 const Button = ({
   value,
-  type,
+  // type,
   onClickEvent  = () => {}
 }: ButtonProps) => {
   return (
     <button className={styles.btn} onClick={()=>onClickEvent()}>
-      {type
+      {/* {type
         &&  <>
               <span></span>
               <span></span>
             </>
-      }
+      } */}
       {value}
     </button>
   )

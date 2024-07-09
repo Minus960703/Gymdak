@@ -25,6 +25,24 @@ const MenuList = [
   },
 ];
 
+const LanguageList = [
+  {
+    id: 1,
+    name: 'KO',
+    value: 'KR'
+  },
+  {
+    id: 2,
+    name: 'EN',
+    value: 'EN'
+  },
+  {
+    id: 3,
+    name: 'JP',
+    value: 'JP'
+  },
+];
+
 const currentLanguage = 'KR';
 
 function Header() {
@@ -37,14 +55,23 @@ function Header() {
           <div className={styles.logo}>
             <Link href={'/'}>Gym Dak</Link>
           </div>
-          <ul> 
-            <li>
-              로그인
-            </li>
-            <li>
-              장바구니
-            </li>
-          </ul>
+          <div>
+            <ul>
+              {LanguageList.map((item) => {
+                return (
+                  <li key={item.id}>{item.name}</li>
+                )
+              })}
+            </ul>
+            <ul>
+              <li>
+                로그인
+              </li>
+              <li>
+                장바구니
+              </li>
+            </ul>
+          </div>
         </div>
         <div className={styles.menu__sub}>
           <ul>

@@ -3,7 +3,6 @@ import { EventTitle } from './EventTitle/EventTitle';
 import { Input } from './Input/Input';
 import { DateInput } from './DateInput/DateInput';
 import { IconImage } from './IconImage/IconImage';
-import { Button } from './Button/Button';
 
 export {
   Label,
@@ -11,5 +10,4 @@ export {
   Input,
   DateInput,
   IconImage,
-  Button
 }
