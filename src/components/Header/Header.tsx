@@ -1,13 +1,15 @@
 'use client'
 
-import React, { useCallback } from 'react'
-import styles from './Header.module.scss'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation';
-
+import React, { useContext }            from 'react'
+import styles           from './Header.module.scss'
+import Link             from 'next/link'
+import { usePathname }  from 'next/navigation';
+import { ThemeStateContext } from '@/context/ThemeStateContext';
+import { IconImage }    from '@/components';
 
 // dataBase 에서 관리하도록 변경 예정 ( 확장성 )
 // Redux에서 한국어, 일본어, 영어 로 관리하기..
+
 const MenuList = [
   {
     id: 1,
@@ -46,6 +48,7 @@ const LanguageList = [
 const currentLanguage = 'KR';
 
 function Header() {
+  const { theme, onClickThemeButton } = useContext(ThemeStateContext);
   const pathname = usePathname();
 
   return (
@@ -56,6 +59,15 @@ function Header() {
             <Link href={'/'}>Gym Dak</Link>
           </div>
           <div>
+            <button
+              className={theme === 'dark' ? `${styles[theme]}` : undefined}
+              onClick={() => onClickThemeButton()}
+            >
+              {theme === 'light'
+                ? <IconImage icon="LIGHT"/>
+                : <IconImage icon="DARK"/>
+              }
+            </button>
             <ul>
               {LanguageList.map((item) => {
                 return (

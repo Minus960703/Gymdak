@@ -1,9 +1,15 @@
-import React from 'react'
+import Image  from 'next/image';
+import React  from 'react'
+import Light  from '@/assets/light.svg'
+import Dark   from '@/assets/dark.svg'
 // import ArrowLeft   from 'assets/arrow_left.png';
 // import ArrowRight   from 'assets/arrow_right.png';
 
 interface IconProps {
-  icon: 'ARROWLEFT' | 'ARROWRIGHT';
+  icon: 'DARK' |
+        'LIGHT' |
+        'ARROWLEFT' |
+        'ARROWRIGHT';
 }
 
 interface IconImageProps extends IconProps {
@@ -13,6 +19,10 @@ interface IconImageProps extends IconProps {
 
 const isDiscernIcon = ({ icon }: IconProps) => {
   switch (icon) {
+    case 'LIGHT':
+      return Light;
+    case 'DARK':
+      return Dark;
     // case 'ARROWLEFT':
     //   return ArrowLeft;
     // case 'ARROWRIGHT':
@@ -30,7 +40,7 @@ const IconImage = ({
   const Icon: any = isDiscernIcon({icon});
   return (
     <>
-      <img src={Icon} alt="아이콘" width={width} height={height} />
+      <Image src={Icon} alt="아이콘" width={width} height={height}/>
     </>
   )
 }
