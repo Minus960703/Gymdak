@@ -36,6 +36,28 @@ header {
   a {
     color: $--color-white;
   }
+
+  .language__setting {
+    li {
+      color: $--color-gray-medium;
+    }
+
+    .language__active {
+      color: $--color-white;
+    }
+  }
+}
+
+.language__setting {
+  align-items: center;
+
+  li {
+    color: $--color-gray-medium;
+  }
+
+  .language__active {
+    color: $--color-black;
+  }
 }
 
 main {

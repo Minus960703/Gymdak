@@ -23,6 +23,7 @@ export const ThemeStateProvider: FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     document.body.className = theme === 'dark' ? 'dark' : 'light';
+    localStorage.setItem('theme_color', theme);
   }, [theme])
 
   return (
