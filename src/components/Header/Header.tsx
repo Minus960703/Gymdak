@@ -6,6 +6,7 @@ import Link             from 'next/link'
 import { usePathname }  from 'next/navigation';
 import { ThemeStateContext } from '@/context/ThemeStateContext';
 import { IconImage }    from '@/components';
+import { LanguageStateContext } from '@/context/LanguageStateContext';
 
 // dataBase 에서 관리하도록 변경 예정 ( 확장성 )
 // Redux에서 한국어, 일본어, 영어 로 관리하기..
@@ -45,10 +46,9 @@ const LanguageList = [
   },
 ];
 
-const currentLanguage = 'KR';
-
 function Header() {
   const { theme, onClickThemeButton } = useContext(ThemeStateContext);
+  const { language, onClickLanguage } = useContext(LanguageStateContext);
   const pathname = usePathname();
 
   return (
@@ -59,7 +59,7 @@ function Header() {
             <Link href={'/'}>Gym Dak</Link>
           </div>
           <div>
-            <ul>
+            <ul className='language__setting'>
               <li>
                 <button
                   className={theme === 'dark' ? `${styles[theme]}` : undefined}
@@ -73,7 +73,13 @@ function Header() {
               </li>
               {LanguageList.map((item) => {
                 return (
-                  <li key={item.id}>{item.name}</li>
+                  <li
+                    className={language === item.value ? 'language__active' : undefined}
+                    onClick={() => onClickLanguage(`${item.value}`)}
+                    key={item.id}
+                  >
+                    {item.name}
+                  </li>
                 )
               })}
             </ul>
@@ -94,9 +100,9 @@ function Header() {
               return (
                 <li
                   key={item.id}
-                  className={isActive ? styles.active : ''}
+                  className={isActive ? styles.active : undefined}
                 >
-                  <Link href={item.path} key={item.id}>{item[`name_${currentLanguage}`]}</Link>
+                  <Link href={item.path} key={item.id}>{item[`name_${language}`]}</Link>
                 </li>
                 )})
             }
