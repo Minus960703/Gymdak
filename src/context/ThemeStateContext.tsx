@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useState, ReactNode, FC, useCallback } from 'react';
+import { createContext, useState, ReactNode, FC, useCallback, useEffect } from 'react';
 
 // interface ThemeContextProp {
 //   theme: 'dark' | 'light';
@@ -19,6 +19,10 @@ export const ThemeStateProvider: FC<{ children: ReactNode }> = ({ children }) =>
   
   const onClickThemeButton = useCallback(() => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  }, [theme]);
+
+  useEffect(() => {
+    document.body.className = theme === 'dark' ? 'dark' : 'light';
   }, [theme])
 
   return (

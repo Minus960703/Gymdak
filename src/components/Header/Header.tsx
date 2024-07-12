@@ -59,16 +59,18 @@ function Header() {
             <Link href={'/'}>Gym Dak</Link>
           </div>
           <div>
-            <button
-              className={theme === 'dark' ? `${styles[theme]}` : undefined}
-              onClick={() => onClickThemeButton()}
-            >
-              {theme === 'light'
-                ? <IconImage icon="LIGHT"/>
-                : <IconImage icon="DARK"/>
-              }
-            </button>
             <ul>
+              <li>
+                <button
+                  className={theme === 'dark' ? `${styles[theme]}` : undefined}
+                  onClick={() => onClickThemeButton()}
+                >
+                  {theme === 'light'
+                    ? <IconImage icon="DARK"/>
+                    : <IconImage icon="LIGHT"/>
+                  }
+                </button>
+              </li>
               {LanguageList.map((item) => {
                 return (
                   <li key={item.id}>{item.name}</li>
