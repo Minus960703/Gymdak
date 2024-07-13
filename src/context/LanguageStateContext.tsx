@@ -2,11 +2,6 @@
 
 import { createContext, useState, ReactNode, FC, useCallback, useEffect } from 'react';
 
-// interface ThemeContextProp {
-//   theme: 'dark' | 'light';
-//   onClickThemeButton: () => void;
-// }
-
 export interface LanguageProps {
   country: 'KR' | 'EN' | 'JP'
 }
@@ -24,6 +19,10 @@ export const LanguageStateProvider: FC<{ children: ReactNode }> = ({ children })
   const onClickLanguage = useCallback((country: LanguageProps['country']) => {
     setLanguage(country);
   }, [language]);
+
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language])
 
   return (
     <LanguageStateContext.Provider value={{ language, onClickLanguage }}>
