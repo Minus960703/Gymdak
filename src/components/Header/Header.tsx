@@ -1,50 +1,16 @@
 'use client'
 
 import React, { useContext }            from 'react'
-import styles           from './Header.module.scss'
-import Link             from 'next/link'
-import { usePathname }  from 'next/navigation';
-import { ThemeStateContext } from '@/context/ThemeStateContext';
-import { IconImage }    from '@/components';
-import { LanguageStateContext } from '@/context/LanguageStateContext';
+import styles                           from './Header.module.scss'
+import Link                             from 'next/link'
+import { usePathname }                  from 'next/navigation';
+import { ThemeStateContext }            from '@/context/ThemeStateContext';
+import { IconImage }                    from '@/components';
+import { LanguageStateContext }         from '@/context/LanguageStateContext';
+import { LanguageList, MenuList }       from '@/api/Header/HeaderObject';
 
 // dataBase 에서 관리하도록 변경 예정 ( 확장성 )
 // Redux에서 한국어, 일본어, 영어 로 관리하기..
-
-const MenuList = [
-  {
-    id: 1,
-    name_KR: "사진",
-    name_EN: "PHOTO",
-    name_JP: "Gym Dak",
-    path: '/photo'
-  },
-  {
-    id: 2,
-    name_KR: "촬영문의",
-    name_EN: "CONTACT",
-    name_JP: "れんらく",
-    path: '/contact'
-  },
-];
-
-const LanguageList = [
-  {
-    id: 1,
-    name: 'KO',
-    value: 'KR'
-  },
-  {
-    id: 2,
-    name: 'EN',
-    value: 'EN'
-  },
-  {
-    id: 3,
-    name: 'JP',
-    value: 'JP'
-  },
-];
 
 function Header() {
   const { theme, onClickThemeButton } = useContext(ThemeStateContext);
@@ -83,7 +49,7 @@ function Header() {
                 )
               })}
             </ul>
-            <ul>
+            <ul style={{justifyContent: 'flex-end'}}>
               <li>
                 로그인
               </li>
@@ -102,7 +68,7 @@ function Header() {
                   key={item.id}
                   className={isActive ? styles.active : undefined}
                 >
-                  <Link href={item.path} key={item.id}>{item[`name_${language}`]}</Link>
+                  <Link href={item.path}>{item[`name_${language}`]}</Link>
                 </li>
                 )})
             }
