@@ -1,13 +1,15 @@
 'use client'
 
-import React, { useContext }            from 'react'
+import React, { useContext, useState  } from 'react'
 import styles                           from './Header.module.scss'
 import Link                             from 'next/link'
-import { usePathname }                  from 'next/navigation';
-import { ThemeStateContext }            from '@/context/ThemeStateContext';
-import { IconImage }                    from '@/components';
-import { LanguageStateContext }         from '@/context/LanguageStateContext';
-import { LanguageList, MenuList }       from '@/api/Header/HeaderObject';
+import { usePathname                  } from 'next/navigation';
+import { ThemeStateContext            } from '@/context/ThemeStateContext';
+import { IconImage                    } from '@/components';
+import { LanguageStateContext         } from '@/context/LanguageStateContext';
+import { LanguageList, MenuList       } from '@/api/Header/HeaderObject';
+import { LoginStateContext            } from '@/context/LoginStateContext';
+import { LoginModal } from '../LoginModal/LoginModal';
 
 // dataBase 에서 관리하도록 변경 예정 ( 확장성 )
 // Redux에서 한국어, 일본어, 영어 로 관리하기..
@@ -15,6 +17,10 @@ import { LanguageList, MenuList }       from '@/api/Header/HeaderObject';
 function Header() {
   const { theme, onClickThemeButton } = useContext(ThemeStateContext);
   const { language, onClickLanguage } = useContext(LanguageStateContext);
+  const { isLogin                   } = useContext(LoginStateContext);
+  const [ modalOpen, setModalOpen   ] = useState<boolean>(false);
+  
+  const isModalActiveButton = () => setModalOpen((prev) => !prev);
   const pathname = usePathname();
 
   return (
@@ -51,7 +57,12 @@ function Header() {
             </ul>
             <ul style={{justifyContent: 'flex-end'}}>
               <li>
-                로그인
+                <button
+                  className={theme === 'dark' ? `${styles[theme]}` : undefined}
+                  onClick={() => isModalActiveButton()}
+                >
+                  <IconImage icon="USER" />
+                </button>
               </li>
               <li>
                 장바구니
@@ -75,6 +86,7 @@ function Header() {
           </ul>
         </div>
       </nav>
+      {modalOpen && <LoginModal modalOpen={modalOpen} isModalActiveButton={isModalActiveButton} />}
     </header>
   )
 }

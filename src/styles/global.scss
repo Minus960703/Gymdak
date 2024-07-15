@@ -52,7 +52,10 @@ header {
   align-items: center;
 
   li {
-    color: $--color-gray-medium;
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+    color           : $--color-gray-medium;
   }
 
   .language__active {

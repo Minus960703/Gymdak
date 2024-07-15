@@ -2,12 +2,14 @@ import Image  from 'next/image';
 import React  from 'react'
 import Light  from '@/assets/light.svg'
 import Dark   from '@/assets/dark.svg'
+import User   from '@/assets/user.svg'
 // import ArrowLeft   from 'assets/arrow_left.png';
 // import ArrowRight   from 'assets/arrow_right.png';
 
 interface IconProps {
   icon: 'DARK' |
         'LIGHT' |
+        'USER'|
         'ARROWLEFT' |
         'ARROWRIGHT';
 }
@@ -23,6 +25,8 @@ const isDiscernIcon = ({ icon }: IconProps) => {
       return Light;
     case 'DARK':
       return Dark;
+    case 'USER':
+      return User;
     // case 'ARROWLEFT':
     //   return ArrowLeft;
     // case 'ARROWRIGHT':

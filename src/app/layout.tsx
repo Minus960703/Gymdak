@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata                  } from "next";
+import { Inter                          } from "next/font/google";
+import { Footer, Header                 } from '@/components';
+import { ThemeStateProvider             } from '@/context/ThemeStateContext';
+import { LanguageStateProvider          } from '@/context/LanguageStateContext';
+import { LoginStateProvider             } from '@/context/LoginStateContext';
 import "@/styles/global.scss";
-import { Footer, Header } from '@/components';
-import { ThemeStateProvider, ThemeStateContext } from '@/context/ThemeStateContext';
-import { LanguageStateProvider } from '@/context/LanguageStateContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,9 +23,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeStateProvider>
           <LanguageStateProvider>
-              <Header />
-              {children}
-              <Footer />
+            <LoginStateProvider>
+                <Header />
+                {children}
+                <Footer />
+              </LoginStateProvider>
             </LanguageStateProvider>
         </ThemeStateProvider>
       </body>
