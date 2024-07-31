@@ -1,5 +1,6 @@
 'use client'
 
+import { isBrowser } from '@/api/isBroswer';
 import { createContext, useState, ReactNode, FC, useCallback, useEffect } from 'react';
 
 export interface LanguageProps {
@@ -11,7 +12,7 @@ export const LanguageStateContext = createContext({
   onClickLanguage: (country: LanguageProps['country']) => {}
 });
 
-let localStorageLanguage: LanguageProps['country'] = localStorage.getItem('language') as 'KR' | 'EN' | 'JP' || 'KR';
+let localStorageLanguage: LanguageProps['country'] = isBrowser() ? localStorage.getItem('language') as 'KR' | 'EN' | 'JP' : 'KR';
 
 export const LanguageStateProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<LanguageProps['country']>(localStorageLanguage);
