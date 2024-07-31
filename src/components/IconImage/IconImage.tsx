@@ -1,8 +1,9 @@
-import Image  from 'next/image';
-import React  from 'react'
-import Light  from '@/assets/light.svg'
-import Dark   from '@/assets/dark.svg'
-import User   from '@/assets/user-icon.svg'
+import Image        from 'next/image';
+import React        from 'react'
+import Light        from '@/assets/light.svg'
+import Dark         from '@/assets/dark.svg'
+import User         from '@/assets/user-icon.svg'
+import Instagram    from '@/assets/instagram.svg'
 // import ArrowLeft   from 'assets/arrow_left.png';
 // import ArrowRight   from 'assets/arrow_right.png';
 
@@ -10,8 +11,9 @@ interface IconProps {
   icon: 'DARK' |
         'LIGHT' |
         'USER'|
+        'INSTAGRAM'|
         'ARROWLEFT' |
-        'ARROWRIGHT';
+        'ARROWRIGHT'
 }
 
 interface IconImageProps extends IconProps {
@@ -27,6 +29,8 @@ const isDiscernIcon = ({ icon }: IconProps) => {
       return Dark;
     case 'USER':
       return User;
+    case 'INSTAGRAM':
+      return Instagram;
     // case 'ARROWLEFT':
     //   return ArrowLeft;
     // case 'ARROWRIGHT':

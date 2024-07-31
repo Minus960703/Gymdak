@@ -7,6 +7,23 @@
   display         : flex;
   justify-content : center;
   align-items     : center;
+  flex-wrap: wrap;
+
+  .footer__image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    button {
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+
+    > .dark {
+      
+    }
+  }
 
   > span {
     font-size     : $--font-small;

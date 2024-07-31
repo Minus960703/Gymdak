@@ -3,7 +3,7 @@
 import { Footer, Header } from '@/components';
 import { ThemeStateProvider } from '@/context/ThemeStateContext';
 
-function MainLayouit({ children }: { children: React.ReactNode }) {
+function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     //redux용
   <>
@@ -16,4 +16,4 @@ function MainLayouit({ children }: { children: React.ReactNode }) {
   )
 }
 
-export { MainLayouit };
+export { MainLayout };

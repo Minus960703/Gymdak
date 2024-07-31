@@ -1,11 +1,13 @@
-import { MainLayouit } from './layouts/MainLayout';
+import { ImageUploader } from '@/components';
+import { MainLayout } from './layouts/MainLayout';
 
 export default function Home() {
+  // console.log(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
   return (
     <main>
-      <MainLayouit>
-1
-      </MainLayouit>
+      <MainLayout>
+        <ImageUploader />
+      </MainLayout>
     </main>
   );
 }
