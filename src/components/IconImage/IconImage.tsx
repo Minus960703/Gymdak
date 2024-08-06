@@ -45,12 +45,28 @@ const IconImage = ({
   width       = 24,
   height      = 24
 }: IconImageProps) => {
-  const Icon: any = isDiscernIcon({icon});
+  const Icon: any = isDiscernIcon({ icon });
+  
+  // if (icon === 'INSTAGRAM') {
+  //   return (
+  //     <>
+  //       <Icon width={width} height={height} fill={} />
+  //     </>
+  //   );
+  // }
   return (
     <>
       <Image src={Icon} alt="아이콘" width={width} height={height}/>
     </>
   )
 }
+
+// const SvgComponent = ({
+
+// }) => {
+//   return (
+//     <Icon width
+//   );
+// }
 
 export { IconImage };

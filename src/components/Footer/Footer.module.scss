@@ -18,10 +18,12 @@
       background-color: transparent;
       border: 0;
       cursor: pointer;
-    }
 
-    > .dark {
-      
+      &.dark {
+        svg {
+          color: $--color-white;
+        }
+      } 
     }
   }
 
