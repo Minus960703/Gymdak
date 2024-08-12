@@ -29,7 +29,15 @@ export default function Home() {
     <main>
       <MainLayout>
         {imageUrl
-          &&  <Image src={imageUrl} width={100} height={100}/>
+          && <Image
+              src={imageUrl}
+              // style={{ width: 'auto', height: '100%' }}
+              layout='intrinsic'
+              width={500}
+              height={1380}
+              alt='bannerImage'
+              // sizes='100%'
+            />
         }
         {/* {imageUrl.length
           && imageUrl.map((image) => {
