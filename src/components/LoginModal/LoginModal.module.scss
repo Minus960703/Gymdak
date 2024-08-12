@@ -9,6 +9,22 @@
   transform: translate(-50%, -50%);
   z-index: 2;
 
+  &.dark {
+    .whiteground {
+      background-color: $--color-black;
+
+      >h2 {
+        color: $--color-white;
+      }
+      
+      .close {
+        > span {
+          background-color: $--color-white;
+        }
+      }
+    }
+  }
+
   .background {
     width: 100vw;
     height: 100vh;

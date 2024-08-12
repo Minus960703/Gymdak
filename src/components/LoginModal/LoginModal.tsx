@@ -1,7 +1,8 @@
-import React, { useEffect, useState }  from 'react'
+import React, { useContext, useEffect, useState }  from 'react'
 import styles from './LoginModal.module.scss'
 import { TextField } from '../Common/TextField/TextField';
 import { Button } from '../Common/Button/Button';
+import { ThemeStateContext } from '@/context/ThemeStateContext';
 
 interface LoginModalProps {
   modalOpen: boolean;
@@ -19,6 +20,7 @@ const defaultValue: LoginModalRequestDataProps = {
 }
 
 function LoginModal({ modalOpen, isModalActiveButton }: LoginModalProps) {
+  const { theme } = useContext(ThemeStateContext);
   const [ loginData   , setLoginData  ] = useState({ ...defaultValue });
   const [ loginError  , setLoginError ] = useState({
     errorMessage: ""
@@ -37,7 +39,7 @@ function LoginModal({ modalOpen, isModalActiveButton }: LoginModalProps) {
   }
 
   return (
-    <div className={styles.login__area}>
+    <div className={`${styles.login__area} ${theme === 'dark' ? styles.dark : undefined}`}>
       <div className={styles.background} />
       <div className={styles.whiteground}>
         <div className={styles.close} onClick={isModalActiveButton}>
