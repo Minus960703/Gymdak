@@ -73,6 +73,28 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+
+  &.photo__container {
+    align-items: baseline;
+    gap: 40px;
+
+    > aside.photo__aside {
+      width: calc(25% - 40px);
+
+      > ul {
+
+        > li {
+          cursor: pointer;
+          width: 70px;
+        }
+      }
+    }
+
+    > .photo__view {
+      width: 75%;
+    }
+  }
 
   > image {
     max-height: 100%;

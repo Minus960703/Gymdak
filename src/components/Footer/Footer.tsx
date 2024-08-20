@@ -10,13 +10,13 @@ type Props = {}
 
 function Footer({ }: Props) {
   const { theme } = useContext(ThemeStateContext);
-  const openPagePopUp = (value: 'INSTAGRAM' | 'KAKAOTALK') => {
+  const openPagePopUp = (value: 'INSTAGRAM' | 'KAKAO') => {
     if (value === 'INSTAGRAM') {
       const url = 'https://www.instagram.com/gym.dak.photo';
       const target = '_blank';
       window.open(url, target);
-    } else if(value === 'KAKAOTALK') {
-      const url = 'https://www.instagram.com/gym.dak';
+    } else if(value === 'KAKAO') {
+      const url = 'https://open.kakao.com/o/sqELf7Jg';
       const target = '_blank';
       window.open(url, target);
     }
@@ -30,12 +30,12 @@ function Footer({ }: Props) {
         >
           <IconImage icon='INSTAGRAM' />
         </button>
-        {/* <button
+        <button
           className={theme === 'dark' ? `${styles[theme]}` : undefined}
-          onClick={() => {}}
+          onClick={() => openPagePopUp('KAKAO')}
         >
-          <IconImage icon='KAKAOTALK' />
-        </button> */}
+          <IconImage icon='KAKAO' />
+        </button>
       </div>
       <Label text={"@Copyright: 최진우"} />
     </footer>
