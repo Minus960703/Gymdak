@@ -4,6 +4,7 @@ import Light        from '@/assets/light.svg'
 import Dark         from '@/assets/dark.svg'
 import User         from '@/assets/user-icon.svg'
 import Instagram    from '@/assets/instagram.svg'
+import Kakao        from '@/assets/kakao.svg'
 // import ArrowLeft   from 'assets/arrow_left.png';
 // import ArrowRight   from 'assets/arrow_right.png';
 
@@ -12,6 +13,7 @@ interface IconProps {
         'LIGHT' |
         'USER'|
         'INSTAGRAM'|
+        'KAKAO'|
         'ARROWLEFT' |
         'ARROWRIGHT'
 }
@@ -31,6 +33,8 @@ const isDiscernIcon = ({ icon }: IconProps) => {
       return User;
     case 'INSTAGRAM':
       return Instagram;
+    case 'KAKAO':
+      return Kakao;
     // case 'ARROWLEFT':
     //   return ArrowLeft;
     // case 'ARROWRIGHT':
