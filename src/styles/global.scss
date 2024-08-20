@@ -81,6 +81,14 @@ main {
 
     > aside.photo__aside {
       width: calc(25% - 40px);
+
+      > ul {
+
+        > li {
+          cursor: pointer;
+          width: 70px;
+        }
+      }
     }
 
     > .photo__view {

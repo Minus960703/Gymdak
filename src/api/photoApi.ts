@@ -11,9 +11,7 @@ const getModelList = async () => {
   }
 
   return {
-    props: {
       stocks,
-    },
   }
 };
 
