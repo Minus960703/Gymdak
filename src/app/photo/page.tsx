@@ -1,21 +1,34 @@
-'use client'
-
-import { getModelList } from '@/api/photoApi';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
+import { supabase } from '@/supabase/supabaseClient';
 
-function PhotoPage() {
-  const [modelList, setModelList] = useState([]);
-  const [photoList, setPhotoList] = useState([]);
+export interface ModelProps {
+  id: number;
+  name: string;
+  gender: 'M' | 'F';
+  instagram: string;
+};
 
-  useEffect(() => {
-    getModelList()
-      .then((resolve) => setModelList([...resolve.stocks]));
-  },[])
+const getModelList = async () => {
+  const { data: stocks, error } = await supabase
+    .from('photo_model')
+    .select('*')
+
+  if (error) {
+    console.error(error)
+    return [];
+  }
+
+  return stocks as ModelProps[];
+};
+
+async function PhotoPage() {
+  const modelList: ModelProps[] = await getModelList() || [];
+  console.log(modelList);
   return (
     <main className='photo__container'>
       <aside className='photo__aside'>
-        {modelList.length
+        {modelList?.length
           &&
               <ul>
                 {
@@ -31,7 +44,7 @@ function PhotoPage() {
         }
       </aside>
       <div className='photo__view'>
-        {photoList.length
+        {/* {photoList.length
           ? 
             <div>
             {
@@ -55,7 +68,7 @@ function PhotoPage() {
           : <div>
             존재하는 사진이 없습니다.
           </div>
-        }
+        } */}
       </div>
     </main>
   )
