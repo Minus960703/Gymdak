@@ -7,7 +7,7 @@ const getModelList = async () => {
 
   if (error) {
     console.error(error)
-    return { props: { stocks: [11] } }
+    return { props: { stocks: [] } }
   }
 
   return {
