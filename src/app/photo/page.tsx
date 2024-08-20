@@ -1,10 +1,21 @@
-import React from 'react'
+'use client'
 
-type Props = {}
+import { getModelList } from '@/api/photoApi';
+import React, { useEffect } from 'react'
 
-function PhotoPage({}: Props) {
+function PhotoPage() {
+  useEffect(() => {
+    getModelList()
+      .then((resolve) => console.log(resolve));
+  },[])
   return (
-    <div>PhotoPage</div>
+    <main className='photo__container'>
+      <aside className='photo__aside'>
+        1</aside>
+      <div className='photo__view'>
+        ss
+      </div>
+    </main>
   )
 }
 
