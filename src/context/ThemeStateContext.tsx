@@ -14,8 +14,9 @@ export const ThemeStateContext = createContext({
 });
 
 export const ThemeStateProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<'dark' | 'light'>(
-    isBrowser() ? localStorage.getItem('theme_color') === 'dark' ? 'dark' : 'light' : 'light'
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    return isBrowser() ? localStorage.getItem('theme_color') === 'dark' ? 'dark' : 'light' : 'light'
+  }
   );
   
   const onClickThemeButton = useCallback(() => {

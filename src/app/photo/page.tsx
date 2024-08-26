@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { supabase } from '@/supabase/supabaseClient';
 
 export interface ModelProps {
@@ -24,7 +24,6 @@ const getModelList = async () => {
 
 async function PhotoPage() {
   const modelList: ModelProps[] = await getModelList() || [];
-  console.log(modelList);
   return (
     <main className='photo__container'>
       <aside className='photo__aside'>

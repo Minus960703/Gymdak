@@ -15,7 +15,7 @@ export const LanguageStateContext = createContext({
 let localStorageLanguage: LanguageProps['country'] = isBrowser() ? localStorage.getItem('language') as 'KR' | 'EN' | 'JP' : 'KR';
 
 export const LanguageStateProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<LanguageProps['country']>(localStorageLanguage);
+  const [language, setLanguage] = useState<LanguageProps['country']>(() => localStorageLanguage);
   
   const onClickLanguage = useCallback((country: LanguageProps['country']) => {
     setLanguage(country);
