@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { supabase } from '@/supabase/supabaseClient';
-import { uploadImage } from '@/api/imageUpload';
+import { Select } from '@/components';
 
 function ImageUploader() {
   const [image, setImage] = useState(null);
@@ -60,45 +60,6 @@ function ImageUploader() {
     }
   }
 
-  // const uploadBannerImage = async () => {
-  //   try {
-  //     setUploading(true);
-
-  //     if (!image) {
-  //       alert('Please select an image to upload');
-  //       return;
-  //     }
-
-  //     const fileExt = image.name.split('.').pop();
-  //     const fileName = `${Date.now()}.${fileExt}`;
-  //     const filePath = `/public/${fileName}`;
-
-  //     const { error } = await supabase.storage
-  //       .from('banner_image')
-  //       .upload(filePath, image);
-
-  //     if (error) {
-  //       throw error;
-  //     }
-
-  //     const { publicURL, error: urlError } = supabase.storage
-  //       .from('banner_image')
-  //       .getPublicUrl(filePath);
-
-  //     if (urlError) {
-  //       throw urlError;
-  //     }
-
-  //     setUrl(publicURL);
-  //     alert('File uploaded successfully!');
-  //   } catch (error) {
-  //     console.error('Error uploading file: ', error);
-  //     alert('Error uploading file');
-  //   } finally {
-  //     setUploading(false);
-  //   }
-  // };
-
   return (
     <div>
       {/* <h1>Upload an Image</h1> */}
@@ -106,14 +67,15 @@ function ImageUploader() {
       <button onClick={()=>{imageUploadFunction(uploadPath)}} disabled={uploading}>
         {uploading ? 'Uploading...' : 'Upload'}
       </button>
-      {url && (
+      <Select />
+      {/* {url && (
         <div>
           <p>Uploaded Image URL:</p>
           <a href={url} target="_blank" rel="noopener noreferrer">
             {url}
           </a>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
