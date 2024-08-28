@@ -36,14 +36,24 @@ export const MenuList: MenuListProps[] = [
     name_KR: "사진",
     name_EN: "PHOTO",
     name_JP: "しゃしん",
-    path: '/photo'
+    path: '/photo',
+    auth: ''
   },
   {
     id: 2,
     name_KR: "촬영문의",
     name_EN: "CONTACT",
     name_JP: "れんらく",
-    path: '/contact'
+    path: '/contact',
+    auth: '',
+  },
+  {
+    id: 3,
+    name_KR: "관리",
+    name_EN: "ADMIN",
+    name_JP: "かんり",
+    path: '/admin',
+    auth: 'admin',
   },
 ];
 
