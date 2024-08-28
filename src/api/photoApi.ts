@@ -1,5 +1,12 @@
 import { supabase } from '@/supabase/supabaseClient'
 
+export interface ModelProps {
+  id: number;
+  name: string;
+  gender: 'M' | 'F';
+  instagram: string;
+};
+
 const getModelList = async () => {
   const { data: stocks, error } = await supabase
     .from('photo_model')
@@ -7,12 +14,12 @@ const getModelList = async () => {
 
   if (error) {
     console.error(error)
-    return { props: { stocks: [] } }
+    return [];
   }
 
-  return {
-      stocks,
-  }
+  return stocks as ModelProps[];
 };
 
-export { getModelList };
+export {
+  getModelList
+};
