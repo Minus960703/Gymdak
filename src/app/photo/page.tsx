@@ -1,10 +1,11 @@
 import Image from 'next/image';
-import React from 'react'
+import React, { useState } from 'react'
 import { supabase } from '@/supabase/supabaseClient';
 import { ModelProps, getModelList } from '@/api/photoApi';
 
 async function PhotoPage() {
   const modelList: ModelProps[] = await getModelList() || [];
+  // const [selectModel, setSelectModel] = useState()
   return (
     <main className='photo__container'>
       <aside className='photo__aside'>
@@ -23,7 +24,22 @@ async function PhotoPage() {
               </ul>
         }
       </aside>
-      <div className='photo__view'>
+      <div className='photo__line' />
+      <div className='photo__area'>
+        <div className='photo__filter'>
+
+        </div>
+        <div className='photo__view'>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          {/* <div></div> */}
+        </div>
         {/* {photoList.length
           ? 
             <div>

@@ -67,13 +67,30 @@ main {
   max-width: 1276px;
   margin: 0 auto;
   min-height: calc(100vh - 80px - 40px - 151px);
-  max-height: calc(100vh - 80px - 40px - 151px);
+  // max-height: calc(100vh - 80px - 40px - 151px);
   overflow: hidden;
   padding: 20px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  // align-items: center;
   box-sizing: border-box;
+
+  &.home__container {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    > button {
+      width: 120px;
+      border-radius: 12px;
+    }
+
+    >.home__view {
+      width: 100%;
+    }
+
+  }
 
   &.admin__container {
     align-items: baseline;
@@ -92,27 +109,6 @@ main {
     }
 
     > .admin__view {
-      width: 75%;
-    }
-  }
-
-  &.photo__container {
-    align-items: baseline;
-    gap: 40px;
-
-    > aside.photo__aside {
-      width: calc(25% - 40px);
-
-      > ul {
-
-        > li {
-          cursor: pointer;
-          width: 70px;
-        }
-      }
-    }
-
-    > .photo__view {
       width: 75%;
     }
   }
