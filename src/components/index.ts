@@ -4,6 +4,7 @@ import { IconImage } from './IconImage/IconImage';
 import { Label } from './Label/Label';
 import { ImageUploader } from './ImageUploader/ImageUploader';
 import { Select } from './Select/Select';
+import { Button } from './Common/Button/Button';
 
 export {
   Header,
@@ -11,5 +12,6 @@ export {
   IconImage,
   Label,
   ImageUploader,
-  Select
+  Select,
+  Button
 }

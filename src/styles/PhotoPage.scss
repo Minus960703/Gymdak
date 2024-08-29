@@ -1,0 +1,50 @@
+.photo__container {
+  gap: 40px;
+  // align-items: baseline;
+  position: relative;
+
+  >aside.photo__aside {
+    width: calc(25% - 40px);
+
+    >ul {
+      >li {
+        cursor: pointer;
+        width: 70px;
+
+        &:not(:first-child) {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+
+  .photo__line {
+    position: absolute;
+    border-left: 1px solid #ccc;
+    width: 1px;
+    height: 100%;
+    left: calc(25% - 40px + 10px);
+    top: 0;
+  }
+
+  >.photo__area {
+    width: 75%;
+
+    >.photo__filter {
+      height: 50px;
+      margin-bottom: 20px;
+    }
+
+    >.photo__view {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      // grid-template-rows: repeat(3, calc((100vh - 80px - 40px - 151px - (10px * 2)) / 3));
+      gap: 10px;
+  
+      >div {
+        border: 1px solid #ccc;
+        aspect-ratio: 1 / 1;
+      }
+    }
+  }
+}

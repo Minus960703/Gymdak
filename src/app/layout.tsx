@@ -5,6 +5,7 @@ import { ThemeStateProvider             } from '@/context/ThemeStateContext';
 import { LanguageStateProvider          } from '@/context/LanguageStateContext';
 import { LoginStateProvider             } from '@/context/LoginStateContext';
 import "@/styles/global.scss";
+import "@/styles/PhotoPage.scss";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +25,11 @@ export default function RootLayout({
         <ThemeStateProvider>
           <LanguageStateProvider>
             <LoginStateProvider>
-                <Header />
-                {children}
-                <Footer />
-              </LoginStateProvider>
-            </LanguageStateProvider>
+              <Header />
+              {children}
+              <Footer />
+            </LoginStateProvider>
+          </LanguageStateProvider>
         </ThemeStateProvider>
       </body>
     </html>
