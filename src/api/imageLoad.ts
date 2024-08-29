@@ -1,11 +1,11 @@
 import { supabase } from '@/supabase/supabaseClient';
 
-export const loadImage = async () => {
+export const loadImage = async (instagramId, imageName) => {
   try {
     const { data, error } = await supabase
       .storage
       .from('banner_image')
-      .getPublicUrl('public/1723434220560.jpg');
+      .getPublicUrl(`${instagramId}/${imageName}.jpg`);
     
     if (error) {
       throw error;

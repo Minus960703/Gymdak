@@ -15,7 +15,7 @@ export default function Home() {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const url = await loadImage();
+        const url = await loadImage('public', '1723434220560');
         setImageUrl(url);
         // setImageUrl((prev) => { return [...prev, { url }] });
       } catch (error) {

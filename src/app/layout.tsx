@@ -25,11 +25,11 @@ export default function RootLayout({
         <ThemeStateProvider>
           <LanguageStateProvider>
             <LoginStateProvider>
-                <Header />
-                {children}
-                <Footer />
-              </LoginStateProvider>
-            </LanguageStateProvider>
+              <Header />
+              {children}
+              <Footer />
+            </LoginStateProvider>
+          </LanguageStateProvider>
         </ThemeStateProvider>
       </body>
     </html>
