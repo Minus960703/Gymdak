@@ -92,27 +92,6 @@ main {
 
   }
 
-  &.admin__container {
-    align-items: baseline;
-    gap: 40px;
-
-    > aside.admin__aside {
-      width: calc(25% - 40px);
-
-      >ul {
-      
-        >li {
-          cursor: pointer;
-          width: 120px;
-        }
-      }
-    }
-
-    > .admin__view {
-      width: 75%;
-    }
-  }
-
   > image {
     max-height: 100%;
     height: auto;

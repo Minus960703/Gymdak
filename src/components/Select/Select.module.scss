@@ -11,7 +11,7 @@
   border-radius: 5px;
   position: relative;
   overflow-y: hidden;
-  z-index: 2;
+  // z-index: 2;
 
   &--active {
     max-height: 100em;
@@ -57,19 +57,20 @@
       max-height: calc(100em / 5);
       opacity: 1;
       overflow-y: auto;
-    }
 
-    >p {
-      // width: calc(100% - 30 * 2px);
-      width: 100%;
-      padding: 0 30px;
-      height: 52px;
-      line-height: 52px;
-      margin: 0;
-
-      &:hover {
-        background: rgba(46, 85, 231, 0.1);
-        color: #2e55e7;
+      > p {
+        box-sizing: border-box;
+        // width: calc(100% - 30 * 2px);
+        width: 100%;
+        padding: 0 30px;
+        height: 52px;
+        line-height: 52px;
+        margin: 0;
+  
+        &:hover {
+          background: rgba(46, 85, 231, 0.1);
+          color: #2e55e7;
+        }
       }
     }
   }

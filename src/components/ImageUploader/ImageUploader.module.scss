@@ -1,0 +1,41 @@
+.upload__container {
+  
+  .drag__zone {
+    width: 80%;
+    aspect-ratio: 1 / 0.8;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    padding: 10px;
+
+    &.preview {
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      /* 자동으로 열을 생성, 최소 크기는 100px, 최대 1fr */
+      grid-gap: 10px;
+      /* 이미지 간의 간격 */
+    } 
+
+    .image__file {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 5px;
+      transition: transform 0.3s;
+        /* 이미지에 호버 시 변환 효과 추가 */
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+  
+  input {
+    display: none;
+  }
+}

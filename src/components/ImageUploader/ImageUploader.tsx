@@ -2,38 +2,59 @@
 
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/supabase/supabaseClient';
-import { Select } from '@/components';
+import { Button, Select } from '@/components';
 import { getModelList } from '@/api/photoApi';
+import styles from './ImageUploader.module.scss';
 
 function ImageUploader() {
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
-  const [url, setUrl] = useState(null);
+  const [urls, setUrls] = useState(null);
   const [uploadPath, setUploadPath] = useState<'banner' | ''>('');
   const [uploadInfo, setUploadInfo] = useState({});
-  const [selectActive, setSelectActive] = useState<boolean>(false);
+  const [selectActive, setSelectActive] = useState({gender: false, model: false});
+  const [selectModelActive, setSelectModelActive] = useState(false);
   const [selectArray, setSelectArray] = useState([]);
+  const [previewImages, setPreviewImages] = useState(null); // 이미지 미리보기 URL
 
   useEffect(() => {
     getModelList()
       .then((resolve) => {
         setSelectArray([...resolve]);
         setUploadInfo((prev) => {
-          return {...prev, fullName: `${resolve[0].instagram}(${resolve[0].name})`, instagramId: resolve[0].instagram}
+          return {
+            ...prev,
+            fullName: `${resolve[0].instagram}(${resolve[0].name})`,
+            instagramId: resolve[0].instagram,
+            gender: resolve[0].gender,
+          }
         })
       });
   }, [])
 
   const handleFileChange = (event) => {
-    setImage(event.target.files[0]);
+    const files = Array.from(event.target.files);
+    setImages(files);
+    previewImagefiles(files);
+  };
+
+  const previewImagefiles = (files) => {
+    const newPreviewSrcs = files.map((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      return new Promise((resolve) => {
+        reader.onloadend = () => {
+          resolve(reader.result);
+        };
+      });
+    });
+
+    Promise.all(newPreviewSrcs).then((results) => setPreviewImages(results));
   };
 
   const imageUploadFunction = async (uploadPath: 'banner' | '') => {
     // 인스타 아디로 하고, 한번에 바뀌었을때는 말 그대로 저기 뭐야 이름.. 관리자페이지에서 수정하도록 변경하기
     // 사진 업로드 시 사진을 모델명, 인스타그램 아이디, 성별 등등 입력하도록 하기
-    // 여러장 업로드 같이 할 수 있도록 하기.. ( 방법 찾아보기 )
-    // 드래그앤 드랍.
-    // 사진 미리보기 기능 만들기
     if (!image) {
       alert('업로드 할 이미지를 선택해 주세요');
       return;
@@ -72,48 +93,81 @@ function ImageUploader() {
     }
   }
   
-  const isChangeSelectActive = () => {
-    setSelectActive((prev) => !prev);
+  const isChangeSelectActive = (name) => {
+    console.log('hi')
+    setSelectActive((prev) => { return { ...prev, [name]: !prev[name]} });
   }
 
-  const isChangeSelectBoxItems = () => {
+  const isChangeSelectBoxItems = (name) => {
     
   }
 
+  const handleDrop = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const files = Array.from(event.dataTransfer.files);
+    setImages(files);
+    previewImagefiles(files); // 드래그 앤 드롭 시 여러 이미지 미리보기 설정
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
   return (
-    <div>
-      {/* <h1>Upload an Image</h1> */}
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={()=>{imageUploadFunction(uploadPath)}} disabled={uploading}>
-        {uploading ? 'Uploading...' : 'Upload'}
-      </button>
-      <Select
-        possibleAll={false}
-        selectOption={uploadInfo?.fullName}
-        selectActive={selectActive}
-        selectArray={selectArray}
-        isChangeSelectBoxItems={isChangeSelectBoxItems}
-        isChangeSelectActive={isChangeSelectActive}
-      />
-      {/* <Select
-        possibleAll={false}
-        selectOption={uploadInfo?.gender}
-        selectActive={selectActive}
-        selectArray={selectArray}
-        isChangeSelectBoxItems={isChangeSelectBoxItems}
-        isChangeSelectActive={isChangeSelectActive}
-      /> */}
-      
-      {/* {url && (
-        <div>
-          <p>Uploaded Image URL:</p>
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            {url}
-          </a>
-        </div>
-      )} */}
+    <div className={styles.upload__container}>
+      <div
+        className={`${styles.drag__zone} ${previewImages?.length ? styles.preview : undefined}`}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+      >
+        {previewImages?.length
+          ? previewImages?.map((src, index) => (
+              <img key={index} src={src} alt={`미리보기 ${index}`} className={styles.image__file} /> // 여러 이미지 미리보기
+            ))
+          : <span>이미지를 여기에 드래그 앤 드롭하세요</span>
+        }
+      </div>
+      <input type="file" onChange={handleFileChange} multiple/>
+      <SelectArea
+        title={'모델'}
+      >
+        <Select
+          possibleAll={false}
+          selectOption={uploadInfo?.fullName}
+          selectActive={selectActive.model}
+          selectArray={selectArray}
+          name={'model'}
+          isChangeSelectBoxItems={isChangeSelectBoxItems}
+          isChangeSelectActive={() => isChangeSelectActive('model')}
+        />
+      </SelectArea>
+      <SelectArea
+        title={'성별'}
+      >
+        <Select
+          possibleAll={false}
+          selectOption={uploadInfo?.gender === 'M' ? '남성' : '여성'}
+          selectActive={selectActive.gender}
+          selectArray={selectArray}
+          name={'gender'}
+          isChangeSelectBoxItems={isChangeSelectBoxItems}
+          isChangeSelectActive={isChangeSelectActive}
+        />
+      </SelectArea>
+      <Button value={'업로드'} onClickEvent={()=>{}}/>
     </div>
   );
+}
+
+function SelectArea({children, title}) {
+  return (
+    <div className={styles.select__container}>
+      <h3>{title}</h3>
+      {children}
+    </div>
+  )
 }
 
 export { ImageUploader };

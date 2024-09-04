@@ -1,11 +1,10 @@
 'use client'
 
-import { ImageUploader } from '@/components';
 import { MainLayout } from './layouts/MainLayout';
-import { loadImage } from '@/api/imageLoad';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components';
+import { imageLoad } from '@/api/imageControl';
 
 export default function Home() {
   // console.log(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
@@ -15,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const url = await loadImage('public', '1723434220560');
+        const url = await imageLoad('public', '1723434220560');
         setImageUrl(url);
         // setImageUrl((prev) => { return [...prev, { url }] });
       } catch (error) {
