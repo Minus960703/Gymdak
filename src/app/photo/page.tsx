@@ -2,11 +2,12 @@ import React                        from 'react'
 import { ModelProps, getModelList } from '@/api/photoApi';
 import { PhotoAside } from '@/components/PhotoAside/PhotoAside';
 import { ModelStateProvider } from '@/context/ModelStateContext';
+import { PhotoFilter } from '@/components';
 
 const PhotoView = () => {
   return (
     <div>
-      
+
     </div>
   )
 }
@@ -19,9 +20,7 @@ async function PhotoPage() {
       <ModelStateProvider>
         <PhotoAside modelList={modelList} />
         <div className='photo__area'>
-          <div className='photo__filter'>
-
-          </div>
+          <PhotoFilter />
           <div className='photo__view'>
             <div></div>
             <div></div>

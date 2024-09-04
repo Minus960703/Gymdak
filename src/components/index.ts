@@ -5,6 +5,7 @@ import { Label } from './Label/Label';
 import { ImageUploader } from './ImageUploader/ImageUploader';
 import { Select } from './Select/Select';
 import { Button } from './Common/Button/Button';
+import { PhotoFilter } from './PhotoFilter/PhotoFilter';
 
 export {
   Header,
@@ -13,5 +14,6 @@ export {
   Label,
   ImageUploader,
   Select,
-  Button
+  Button,
+  PhotoFilter
 }

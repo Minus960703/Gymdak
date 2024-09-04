@@ -3,15 +3,26 @@ import styles from './Select.module.scss';
 import { IconImage } from '@/components';
 
 interface SelectProps {
-	// selectOption: '' | UserRole;
-	// selectActive: boolean;
-	// isChangeSelectActive: () => void;
-	// isChangeSelectBoxItems: (name: string, value: '' | UserRole) => void;
-  // filter?: boolean;
-  // possibleAll?: boolean;
+	selectOption: string;
+	selectActive: boolean;
+	isChangeSelectActive: () => void;
+	isChangeSelectBoxItems: (name: string, value: string) => void;
+	selectArray: Array<{ id: string; name: string; value?: string }>;
+	name: string;
+	filter?: boolean;
+	possibleAll?: boolean;
 }
 
-function Select({ selectOption, selectActive, selectArray, isChangeSelectActive, isChangeSelectBoxItems, filter = false, possibleAll = true }: SelectProps) {
+function Select({
+	selectOption,
+	selectActive,
+	selectArray,
+	name,
+	isChangeSelectActive,
+	isChangeSelectBoxItems,
+	filter = false,
+	possibleAll = true
+}: SelectProps) {
   return (
     <ul
       className={
@@ -24,11 +35,11 @@ function Select({ selectOption, selectActive, selectArray, isChangeSelectActive,
 				className={`${styles.select__option} ${selectActive ? styles['select__option--active'] : undefined}`}
 				onClick={(e) => e.stopPropagation()}
 			>
-				{filter && <p onClick={() => isChangeSelectBoxItems('role', '')}>전체</p>}
+				{filter && <p onClick={() => isChangeSelectBoxItems(name, '')}>전체</p>}
 				{selectArray?.map((selectItem) => (
 					<p
 						key={selectItem.id}
-						onClick={() => isChangeSelectBoxItems('role', selectItem.value)}
+						onClick={() => isChangeSelectBoxItems(name, selectItem.value)}
 					>
 						{selectItem.name}
 					</p>
