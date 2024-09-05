@@ -29,6 +29,34 @@ header {
   margin: 0 auto;
 }
 
+.top__btn {
+  position: fixed;
+  width: 40px !important;
+  aspect-ratio: 1 / 1;
+  border-radius: 50% !important;
+  border: 1px solid $--color-gray;
+  bottom: 20px;
+  right: 20px;
+  
+  > span {
+    width: 2px;
+    height: 12px;
+    background-color: $--color-black;
+    position: absolute;
+    top: 12.5px;
+
+    &:first-child {
+      left: 14px;
+      transform: rotate(45deg);
+    }
+
+    &:last-child {
+      right: 14px;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
 .dark {
   background-color  : $--color-black;
   color             : $--color-white;

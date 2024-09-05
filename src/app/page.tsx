@@ -7,9 +7,8 @@ import { Button } from '@/components';
 import { imageLoad } from '@/api/imageControl';
 
 export default function Home() {
-  // console.log(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-  // const [imageUrl, setImageUrl] = useState([]);
   const [imageUrl, setImageUrl] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -21,21 +20,18 @@ export default function Home() {
         console.error('Error loading image:', error);
       }
     };
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        console.log('hi');
-      } else {
-
-      }
-    }
-    window.addEventListener('scroll', handleScroll);
 
     fetchImage();
 
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
-    }
-
+    };
   }, []);
   
   const moveToPage = () => {
@@ -43,6 +39,14 @@ export default function Home() {
     const target = '_blank';
     window.open(url, target);
   }
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth' // Adds smooth scrolling effect
+    });
+  };
 
   return (
     <main className='home__container'>
@@ -69,6 +73,17 @@ export default function Home() {
           } */}
         </div>
       </MainLayout>
+      { 
+        isScrolled 
+        && <button
+            className='top__btn'
+            onClick={scrollToTop}
+          >
+            <span></span>
+            <span></span>
+            {/* arrow */}
+          </button>
+      }
     </main>
   );
 }
