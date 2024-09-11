@@ -8,6 +8,10 @@ html, body {
   height        : fit-content;
 }
 
+body {
+  transition: all .4s ease;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

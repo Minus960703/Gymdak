@@ -23,7 +23,7 @@ function Select({
 	isChangeSelectActive,
 	isChangeSelectBoxItems,
 	filter = false,
-	possibleAll = true
+	possibleAll = true,
 }: SelectProps) {
 	const selectRef = useRef<HTMLUListElement>(null);
 

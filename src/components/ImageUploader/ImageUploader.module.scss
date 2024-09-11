@@ -1,3 +1,5 @@
+@import '@/styles/DefaultValueVariable.scss';
+
 .upload__container {
   
   .drag__zone {
@@ -40,7 +42,11 @@
   }
 
   .select__container {
-
+    h3 {
+      > span {
+        color: $--color-red;
+      }
+    }
   }
 
   > button {

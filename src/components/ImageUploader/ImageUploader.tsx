@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { supabase } from '@/supabase/supabaseClient';
 import { Button, Select } from '@/components';
 import { getModelList } from '@/api/photoApi';
@@ -27,6 +27,7 @@ function ImageUploader() {
   const [selectModelActive, setSelectModelActive] = useState(false);
   const [selectArray, setSelectArray] = useState({ model: [], gender: []});
   const [previewImages, setPreviewImages] = useState(null); // 이미지 미리보기 URL
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     getModelList()
@@ -64,43 +65,72 @@ function ImageUploader() {
   };
 
   const imageUploadFunction = async (uploadPath: 'banner' | '') => {
-    // 인스타 아디로 하고, 한번에 바뀌었을때는 말 그대로 저기 뭐야 이름.. 관리자페이지에서 수정하도록 변경하기
-    // 사진 업로드 시 사진을 모델명, 인스타그램 아이디, 성별 등등 입력하도록 하기
-    if (!image) {
-      alert('업로드 할 이미지를 선택해 주세요');
-      return;
-    }
-    setUploading(true);
+    // 다중 인서트 해결 ,
+    // 딜리트 로직 작성 필요,
+    // 파일 재선택 시 파일 관련해서 남아있도록 배열 수정하는 것 해결 ( 임시저장 )
+    // 업로드 완료 시 업로드 완료라고 표기 또는 모달창으로 게시글로 이동하냐고 알림 필요
+    // 
+    if (validateRequiredFields()) { 
+      setUploading(true);
 
-    const uploadStoragePath = uploadPath === 'banner' ? 'banner_image' : 'image_files';
-    try {
-      const fileExt = image.name.split('.').pop();
-      const fileName = `${Date.now()}.${fileExt}`;
-      // const filePath = `/${uploadPath}/${fileName}`;
-      const filePath = `/${uploadInfo?.instagramId}/${fileName}`;
-      
-      const { error } = await supabase.storage
-        .from(uploadStoragePath)
-        .upload(filePath, image);
+      const uploadStoragePath = uploadPath === 'banner' ? 'banner_image' : 'image_files';
+      const uploadedFilePaths = []; // 업로드된 파일 경로를 추적
+      const uploadedImageData = []; // 업로드된 파일 데이터베이스 정보 저장
 
-      if (error) {
-        throw error;
+      try {
+        for (const image of images) {
+          const fileExt = image.name.split('.').pop();
+          const fileName = `${Date.now()}-${Math.random()}.${fileExt}`;
+          const filePath = `/${uploadInfo?.instagramId}/${fileName}`;
+
+          const { error: uploadError } = await supabase.storage
+            .from(uploadStoragePath)
+            .upload(filePath, image);
+
+          if (uploadError) throw uploadError;
+
+          const { error: urlError } = supabase.storage
+            .from(uploadStoragePath)
+            .getPublicUrl(filePath);
+
+          if (urlError) throw urlError;
+
+          uploadedFilePaths.push(filePath); // 업로드된 파일 경로 저장
+
+          const { data, error: dbError } = await supabase
+            .from('photo_post')
+            .insert({
+              image_file: fileName,
+              model_name: uploadInfo?.instagramId,
+            });
+
+          if (dbError) throw dbError;
+
+          uploadedImageData.push(data);
+        }
+        alert('File uploaded successfully!');
+      } catch (error) {
+        // 오류 발생 시, 업로드된 모든 파일 삭제 및 데이터베이스 롤백 처리
+        await Promise.all(
+          uploadedFilePaths.map(async (filePath) => {
+            await supabase.storage.from(uploadStoragePath).remove([filePath]); // 업로드된 파일 삭제
+          })
+        );
+
+        // TODO: 데이터베이스에서 삽입된 데이터 삭제 로직 추가
+        // await Promise.all(
+        //   uploadedImageData.map(async (data) => {
+        //     await supabase
+        //       .from('images') // 'images'는 테이블 이름 예시
+        //       .delete()
+        //       .eq('id', data.id); // 삭제하려는 데이터의 ID로 조건 설정
+        //   })
+        // );
+
+        alert('File upload failed. All changes rolled back.');
+      } finally {
+        setUploading(false);
       }
-
-      const { publicURL, error: urlError } = supabase.storage
-        .from(uploadStoragePath)
-        .getPublicUrl(filePath);
-
-      if (urlError) {
-        throw urlError;
-      }
-
-      setUrl(publicURL);
-      alert('File uploaded successfully!');
-    } catch (error) {
-      
-    } finally {
-      setUploading(false);
     }
   }
   
@@ -134,12 +164,39 @@ function ImageUploader() {
     event.stopPropagation();
   };
 
+  const clickUploadSection = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  }
+
+  const validateRequiredFields = () => {
+    if (!images.length) { 
+      alert('업로드 할 이미지가 1장도 존재 하지 않습니다.');
+      return false;
+    }
+
+    if (!uploadInfo?.model) {
+      alert('모델 선택이 필요합니다.');
+      return false;
+    }
+
+    if (!uploadInfo?.gender) {
+      alert('성별 입력이 필요합니다.');
+      return false;
+    }
+
+    return true;
+  }
+
+  // <></>로 감싸서 불필요한 section.upload__container 제거 ( 이미 article로 page에서 묶음 ) 
   return (
-    <div className={styles.upload__container}>
-      <div
+    <section className={styles.upload__container}>
+      <section
         className={`${styles.drag__zone} ${previewImages?.length ? styles.preview : undefined}`}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
+        onClick={()=>clickUploadSection()}
       >
         {previewImages?.length
           ? previewImages?.map((src, index) => (
@@ -147,10 +204,11 @@ function ImageUploader() {
             ))
           : <span>이미지를 여기에 드래그 앤 드롭하세요</span>
         }
-      </div>
-      <input type="file" onChange={handleFileChange} multiple/>
+      </section>
+      <input type="file" onChange={handleFileChange} multiple ref={fileInputRef} />
       <SelectArea
         title={'모델'}
+        required={true}
       >
         <Select
           possibleAll={false}
@@ -164,6 +222,7 @@ function ImageUploader() {
       </SelectArea>
       <SelectArea
         title={'성별'}
+        required={true}
       >
         <Select
           possibleAll={false}
@@ -175,17 +234,20 @@ function ImageUploader() {
           isChangeSelectActive={() => isChangeSelectActive('gender')}
         />
       </SelectArea>
-      <Button value={'업로드'} onClickEvent={()=>{}}/>
-    </div>
+      <Button value={'업로드'} onClickEvent={imageUploadFunction}/>
+    </section>
   );
 }
 
-function SelectArea({children, title}) {
+function SelectArea({children, title, required}) {
   return (
-    <div className={styles.select__container}>
-      <h3>{title}</h3>
+    <section className={styles.select__container}>
+      <h3>
+        {title}
+        {required && <span>*</span>}
+      </h3>
       {children}
-    </div>
+    </section>
   )
 }
 

@@ -11,11 +11,11 @@ const AdminMenuObject = [
     name: '이미지 업로드',
     value: 'uploadImage',
   },
-  {
-    id: 2,
-    name: '예제2',
-    value: 'example2',
-  },
+  // {
+  //   id: 2,
+  //   name: '예제2',
+  //   value: 'example2',
+  // },
 ];
 
 function AdminPage({ }: Props) {
@@ -37,13 +37,14 @@ function AdminPage({ }: Props) {
           }
         </ul>
       </aside>
-      <div className='admin__view'>
-        {
+      <article className='admin__view'>
+        <ImageUploader />
+        {/* {
           currentPage === 'uploadImage' 
             ? <ImageUploader />
             : <div>dd</div>
-        }
-      </div>
+        } */}
+      </article>
     </main>
   )
 };
