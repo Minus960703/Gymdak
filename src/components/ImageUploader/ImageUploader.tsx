@@ -6,6 +6,17 @@ import { Button, Select } from '@/components';
 import { getModelList } from '@/api/photoApi';
 import styles from './ImageUploader.module.scss';
 
+const GenderArray = [
+  {
+    id: 1,
+    gender: 'M'
+  },
+  {
+    id: 2,
+    gender: 'F'
+  }
+]
+
 function ImageUploader() {
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -14,13 +25,13 @@ function ImageUploader() {
   const [uploadInfo, setUploadInfo] = useState({});
   const [selectActive, setSelectActive] = useState({gender: false, model: false});
   const [selectModelActive, setSelectModelActive] = useState(false);
-  const [selectArray, setSelectArray] = useState([]);
+  const [selectArray, setSelectArray] = useState({ model: [], gender: []});
   const [previewImages, setPreviewImages] = useState(null); // 이미지 미리보기 URL
 
   useEffect(() => {
     getModelList()
       .then((resolve) => {
-        setSelectArray([...resolve]);
+        setSelectArray((prev) => { return { model: [...resolve], gender: [...GenderArray] } });
         setUploadInfo((prev) => {
           return {
             ...prev,
@@ -94,12 +105,20 @@ function ImageUploader() {
   }
   
   const isChangeSelectActive = (name) => {
-    console.log('hi')
     setSelectActive((prev) => { return { ...prev, [name]: !prev[name]} });
   }
 
-  const isChangeSelectBoxItems = (name) => {
-    
+  const isChangeSelectBoxItems = (name, value, fullName) => {
+    if (name === 'model') {
+      setUploadInfo((prev) => {
+        return { ...prev, [name]: value, fullName}
+      })
+    } else {
+      setUploadInfo((prev) => {
+        return { ...prev, [name]: value}
+      })
+    }
+    setSelectActive((prev) => { return { ...prev, [name]: !prev[name] } });
   }
 
   const handleDrop = (event) => {
@@ -137,7 +156,7 @@ function ImageUploader() {
           possibleAll={false}
           selectOption={uploadInfo?.fullName}
           selectActive={selectActive.model}
-          selectArray={selectArray}
+          selectArray={selectArray?.model}
           name={'model'}
           isChangeSelectBoxItems={isChangeSelectBoxItems}
           isChangeSelectActive={() => isChangeSelectActive('model')}
@@ -150,10 +169,10 @@ function ImageUploader() {
           possibleAll={false}
           selectOption={uploadInfo?.gender === 'M' ? '남성' : '여성'}
           selectActive={selectActive.gender}
-          selectArray={selectArray}
+          selectArray={selectArray?.gender}
           name={'gender'}
           isChangeSelectBoxItems={isChangeSelectBoxItems}
-          isChangeSelectActive={isChangeSelectActive}
+          isChangeSelectActive={() => isChangeSelectActive('gender')}
         />
       </SelectArea>
       <Button value={'업로드'} onClickEvent={()=>{}}/>

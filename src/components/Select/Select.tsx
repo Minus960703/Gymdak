@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useRef } from 'react'
 import styles from './Select.module.scss';
 import { IconImage } from '@/components';
 
@@ -6,7 +8,7 @@ interface SelectProps {
 	selectOption: string;
 	selectActive: boolean;
 	isChangeSelectActive: () => void;
-	isChangeSelectBoxItems: (name: string, value: string) => void;
+	isChangeSelectBoxItems: (name: string, value: string, fullName?: string | null) => void;
 	selectArray: Array<{ id: string; name: string; value?: string }>;
 	name: string;
 	filter?: boolean;
@@ -23,8 +25,27 @@ function Select({
 	filter = false,
 	possibleAll = true
 }: SelectProps) {
+	const selectRef = useRef<HTMLUListElement>(null);
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+        // 컴포넌트 외부를 클릭한 경우
+        isChangeSelectActive(); // 선택 상자를 닫는 함수 호출
+      }
+    };
+
+    if (selectActive) {
+      document.addEventListener('mousedown', handleClickOutside); // 마우스 다운 이벤트 리스너 추가
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside); // 이벤트 리스너 제거
+    };
+	}, [selectActive, isChangeSelectActive])
   return (
-    <ul
+		<ul
+			ref={selectRef}
       className={
         `${styles.select} ${selectActive ? styles['select--active'] : undefined}`
       }
@@ -39,9 +60,15 @@ function Select({
 				{selectArray?.map((selectItem) => (
 					<p
 						key={selectItem.id}
-						onClick={() => isChangeSelectBoxItems(name, selectItem.value)}
+						onClick={() => isChangeSelectBoxItems(
+							name,
+							name === 'model' ? selectItem?.instagram : selectItem.gender,
+							name === 'model' ? `${selectItem.instagram}(${selectItem.name})` : null)}
 					>
-						{selectItem.name}
+						{name === 'model'
+							? `${selectItem.instagram}(${selectItem.name})`
+							: selectItem.gender === 'M' ? '남성' : '여성'
+						}
 					</p>
 				))}
 			</div>
