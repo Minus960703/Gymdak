@@ -21,10 +21,8 @@ function ImageUploader() {
   const [images, setImages] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [urls, setUrls] = useState(null);
-  const [uploadPath, setUploadPath] = useState<'banner' | ''>('');
   const [uploadInfo, setUploadInfo] = useState({});
   const [selectActive, setSelectActive] = useState({gender: false, model: false});
-  const [selectModelActive, setSelectModelActive] = useState(false);
   const [selectArray, setSelectArray] = useState({ model: [], gender: []});
   const [previewImages, setPreviewImages] = useState(null); // 이미지 미리보기 URL
   const fileInputRef = useRef(null);

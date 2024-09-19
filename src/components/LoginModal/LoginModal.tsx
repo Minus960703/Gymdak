@@ -42,7 +42,10 @@ function LoginModal({ modalOpen, isModalActiveButton }: LoginModalProps) {
     <div className={`${styles.login__area} ${theme === 'dark' ? styles.dark : undefined}`}>
       <div className={styles.background} />
       <div className={styles.whiteground}>
-        <div className={styles.close} onClick={isModalActiveButton}>
+        <div
+          className={styles.close}
+          onClick={isModalActiveButton}
+        >
           <span></span>
           <span></span>
         </div>
